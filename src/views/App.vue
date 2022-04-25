@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div
+    id="app"
+    data-test="app"
+    :class="appClasses"
+  >
+    Hello world!
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  computed: {
+    showNav () {
+      return false // true when the user is logged-in
+    },
+    appClasses () {
+      return {
+        'l-width-navigation': this.showNav,
+        'l-no-navigation': !this.showNav
+      }
+    },
+    isInCypress () {
+      return !!window.cypress
+    }
+  },
+  methods: {
+
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+$color: #ff0000;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $color;
   margin-top: 60px;
 }
 </style>
