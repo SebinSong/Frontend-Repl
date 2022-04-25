@@ -1,11 +1,14 @@
-<template>
-  <div
+<template lang="pug">
+  div(
     id="app"
     data-test="app"
     :class="appClasses"
-  >
-    Hello world!
-  </div>
+  )
+    p Hello world!
+    a(
+      href="https://www.google.com/doodles"
+      target="_blank"
+    ) wow
 </template>
 
 <script>
