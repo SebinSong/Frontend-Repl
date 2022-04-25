@@ -1,4 +1,3 @@
-# groupincome-practice
 
 ## Project setup
 ```
