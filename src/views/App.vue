@@ -4,6 +4,7 @@
     data-test="app"
     :class="appClasses"
   )
+    app-styles
     p Hello world!
     a(
       href="https://www.google.com/doodles"
@@ -12,8 +13,13 @@
 </template>
 
 <script>
+import AppStyles from '@components/AppStyles.vue'
+
 export default {
   name: 'App',
+  components: {
+    AppStyles
+  },
   computed: {
     showNav () {
       return false // true when the user is logged-in
@@ -35,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-$color: #ff0000;
+$color: var(--primary_0);
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
