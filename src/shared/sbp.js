@@ -1,16 +1,14 @@
 'use strict'
 
-type TypeFilter = (domain: string, selector: string, data: any) => ?boolean
-
-const selectors: {[string]: Function} = {}
-const domains: {[string]: Object} = {}
-const globalFilters: Array<TypeFilter> = []
-const domainFilters: {[string]: Array<TypeFilter>} = {}
-const selectorFilters: {[string]: Array<TypeFilter>} = {}
+const selectors = {}
+const domains = {}
+const globalFilters = []
+const domainFilters = {}
+const selectorFilters = {}
 
 const DOMAIN_REGEX = /^[^/]+/
 
-function sbp (selector: string, ...data: any): any {
+function sbp (selector, ...data) {
   const domainLookup = DOMAIN_REGEX.exec(selector)
   if (!domainLookup || !selectors[selector]) {
     throw new Error(`SBP: selector not registered: ${selector}`)
@@ -32,7 +30,7 @@ const SBP_BASE_SELECTORS = {
   // TODO: implement 'sbp/domains/lock' to prevent further selectors from being registered
   //       for that domain, and to prevent selectors from being overwritten for that domain.
   //       Once a domain is locked it cannot be unlocked.
-  'sbp/selectors/register': function (sels: {[string]: Function}) {
+  'sbp/selectors/register': function (sels) {
     const registered = []
     for (const selector in sels) {
       const domainLookup = DOMAIN_REGEX.exec(selector)
@@ -57,26 +55,26 @@ const SBP_BASE_SELECTORS = {
     }
     return registered
   },
-  'sbp/selectors/unregister': function (sels: [string]) {
+  'sbp/selectors/unregister': function (sels) {
     for (const selector of sels) {
       delete selectors[selector]
     }
   },
-  'sbp/selectors/overwrite': function (sels: {[string]: Function}) {
+  'sbp/selectors/overwrite': function (sels) {
     sbp('sbp/selectors/unregister', Object.keys(sels))
     return sbp('sbp/selectors/register', sels)
   },
-  'sbp/selectors/fn': function (sel: string): Function {
+  'sbp/selectors/fn': function (sel) {
     return selectors[sel]
   },
-  'sbp/filters/global/add': function (filter: TypeFilter) {
+  'sbp/filters/global/add': function (filter) {
     globalFilters.push(filter)
   },
-  'sbp/filters/domain/add': function (domain: string, filter: TypeFilter) {
+  'sbp/filters/domain/add': function (domain, filter) {
     if (!domainFilters[domain]) domainFilters[domain] = []
     domainFilters[domain].push(filter)
   },
-  'sbp/filters/selector/add': function (selector: string, filter: TypeFilter) {
+  'sbp/filters/selector/add': function (selector, filter) {
     if (!selectorFilters[selector]) selectorFilters[selector] = []
     selectorFilters[selector].push(filter)
   }
