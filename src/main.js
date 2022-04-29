@@ -1,3 +1,8 @@
+import sbp from '~/shared/sbp.js'
+import '~/shared/domain/okTurtles/data.js'
+import '~/shared/domain/okTurtles/eventQueue.js'
+import '~/shared/domain/okTurtles/events.js'
+
 import Vue from 'vue'
 import App from './views/App.vue'
 import store from './model/state.js'

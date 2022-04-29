@@ -18,7 +18,7 @@ export default (
       return _store.delete(key)
     },
     'okTurtles.data/add': function (key, data) {
-      const array = _store.fet(key)
+      const array = _store.get(key)
       if (array) {
         array.push(data)
       } else {
