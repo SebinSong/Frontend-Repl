@@ -97,4 +97,41 @@ $icons: (
   &.is-regular::before {
     font-weight: 400;
   }
+
+  &.is-prefix {
+    margin-right: 0.5rem;
+  }
+
+  &.is-suffix {
+    margin-left: 0.5rem;
+  }
+}
+
+@each $name, $icon in $icons {
+  .icon-#{$name}::before {
+    content: $icon;
+  }
+}
+
+.icon-eye::before {
+  font-weight: 400;
+}
+
+.icon-round {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2rem;
+}
+
+@mixin icon($name) {
+  content: map-get($icons, $name);
+  text-rendering: auto;
+  line-height: 1;
+  font-family: "Font Awesome 5 free";
+  font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
 }

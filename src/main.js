@@ -7,6 +7,8 @@ import Vue from 'vue'
 import App from './views/App.vue'
 import store from './model/state.js'
 
+// custom directives
+import '@view-utils/vSafeHtml.js' 
 // global components
 import './views/components/global-components/vStyle.js'
 
