@@ -1,0 +1,167 @@
+@font-face {
+  src: url(../fonts/Lato/Lato-Bold.ttf);
+  font-family: "Lato";
+  font-weight: 700;
+}
+
+@font-face {
+  src: url(../fonts/Lato/Lato-Regular.ttf);
+  font-family: "Lato";
+  font-weight: 400;
+}
+
+@font-face {
+  src: url(../fonts/Poppins/Poppins-Bold.ttf);
+  font-family: "Poppins";
+  font-weight: 700;
+}
+
+@font-face {
+  src: url(../fonts/Poppins/Poppins-Regular.ttf);
+  font-family: "Poppins";
+  font-weight: 400;
+}
+
+html {
+  background-color: white;
+  font-size: var(--font-size);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  min-width: 19rem;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Lato", "Helvetica Neue", "sans-serif";
+  font-style: normal;
+  font-weight: normal;
+  font-size: $size_4;
+  line-height: 1.5;
+  color: $text_0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0; // reset margins
+}
+
+// From _variables.scss
+// $size_1 = 2rem     = 32px
+// $size_2 = 1.5rem   = 24px = $size_large
+// $size_3 = 1.125rem = 18px = $size_medium
+// $size_4 = 0.875rem = 14px = $size_normal
+// $size_5 =  0.75rem = 12px = $size_small
+
+$titles: $size_1, $size_2, $size_3, $size_4, $size_5;
+$lineHeight: 3, 2.25, 1.6875, 1.3125, 1;
+
+@each $size in $titles {
+  $i: index($titles, $size);
+
+  .is-title-#{$i} {
+    font-family: "Poppins";
+    font-weight: bold;
+    font-size: $size;
+    line-height: #{nth($lineHeight, $i)}rem;
+  }
+}
+
+@include until($tablet) {
+  .is-title-1 {
+    font-size: $size_2;
+    line-height: 2.125rem;
+  }
+
+  .is-title-2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@include phone {
+  .is-title-1 {
+    font-size: 1.25rem;
+    line-height: 2.125rem;
+  }
+
+  .is-title-2 {
+    font-size: $size_3;
+    line-height: 1.5625rem;
+  }
+}
+
+.is-subtitle {
+  font-family: "Poppins";
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
+  font-weight: normal;
+  font-size: $size_5;
+  line-height: 1rem;
+  color: $text_1;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.has-text-big {
+  font-size: 1rem;
+}
+
+.help,
+.has-text-small,
+small {
+  font-size: $size_5;
+}
+
+.has-text-normal {
+  font-family: "Lato";
+  font-weight: 400;
+}
+
+.has-text-bold {
+  font-weight: 600;
+}
+
+.has-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.has-text-0 {
+  color: $text_0;
+}
+
+.help,
+.has-txt-1 {
+  color: $text_1;
+}
+
+@each $name in $colors {
+  .has-text-#{$name} {
+    color: var(--#{$name}_0);
+  }
+
+  .has-background-#{$name} {
+    background-color: var(--#{$name}_2);
+  }
+
+  .has-background-#{$name}-solid {
+    background-color: var(--#{$ame}_0);
+  }
+}
+
+.has-background-blank {
+  background-color: $background;
+}
+
+.has-text-white {
+  color: $white;
+}

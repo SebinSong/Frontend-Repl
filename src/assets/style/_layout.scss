@@ -1,0 +1,100 @@
+$bannerGeneralHeight: 2.3rem;
+
+.l-no-navigation {
+  display: grid;
+  height: 100vh;
+  overflow: hidden;
+  grid-template-areas:
+    "l-banner"
+    "l-page";
+  grid-template-rows: min-content auto;
+  
+  .l-page {
+    padding: 1rem;
+
+    @include tablet {
+      padding: 1.5rem;
+    }
+  }
+}
+
+.l-with-navigation {
+  display: grid;
+  overflow: hidden;
+  height: 100vh;
+  grid-template-areas:
+    "l-banner l-banner"
+    "l-navigation l-page";
+  grid-template-rows: min-content auto;
+
+  @include tablet {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.l-banner {
+  grid-area: l-banner;
+  position: sticky;
+  height: $bannerGeneralHeight;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.5rem;
+  z-index: $zindex-banner;
+
+  & ~ .l-navigation {
+    height: calc(100vh - #{$bannerGeneralHeight});
+
+    @include touch {
+      margin-top: $bannerGeneralHeight;
+    }
+  }
+
+  & ~ .l-page .p-sidebar {
+    height: calc(100vh - #{$bannerGeneralHeight});
+  }
+
+  & ~ .l-modal .modal {
+    top: $bannerGeneralHeight;
+  }
+
+  @include touch {
+    & ~ .l-modal {
+      .c-modal {
+        margin-top: $bannerGeneralHeight;
+      }
+
+      .c-modal-close,
+      .has-background .c-modal-close {
+        top: 3rem;
+      }
+    }
+  }
+}
+
+.l-navigation {
+  grid-area: l-navigation;
+  height: 100vh;
+
+  @include until($desktop) {
+    position: absolute;
+    z-index: $zindex-sidebar;
+    transform: translateX(-100%);
+    transition: transform $transitionSpeed;
+
+    &.is-active {
+      transform: translateX(0);
+    }
+  }
+}
+
+.l-page {
+  grid-area: l-page;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.l-modal {
+  position: absolute;
+}
