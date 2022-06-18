@@ -9,17 +9,23 @@ export const defaultConfig = {
 }
 
 const transform = (el, binding) => {
-  if (binding.oldValue !== binding.value) {
-    let config = defaultConfig
-    if (binding.arg === 'a') {
-      config = cloneDeep(config)
-      config.ALLOWED_ATTR.push('href', 'target')
-      config.ALLOWED_TAGS.push('a')
-    }
+  const { 
+    oldValue = null,
+    value,
+    arg
+  } = binding
 
-    el.textContent = ''
-    el.appendChild(dompurify.sanitize(binding.value, config))
+  if (oldValue === value) {
+    return
   }
+
+  const config = {
+    ...defaultConfig,
+    ...(arg || {})
+  }
+
+  el.textContent = ''
+  el.appendChild(dompurify.sanitize(value, config))
 }
 
 Vue.directive('safe-html', {
