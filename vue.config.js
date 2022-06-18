@@ -11,5 +11,6 @@ module.exports = defineConfig({
     config.resolve.alias.set('@components', path.join(appSrc, 'views/components'))
     config.resolve.alias.set('@view-utils', path.join(appSrc, 'views/utils'))
     config.resolve.alias.set('@assets', path.join(appSrc, 'assets'))
+    config.resolve.alias.set('@model', path.join(appSrc, 'model'))
   }
 })

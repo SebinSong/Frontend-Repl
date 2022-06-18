@@ -10,6 +10,9 @@ import store from './model/state.js'
 // global components
 import './views/components/global-components/vStyle.js'
 
+// directives
+import './views/utils/vSafeHtml.js'
+
 Vue.config.productionTip = false
 Vue.config.errorHandler = (err, vm, info) => {
   console.error(`uncaught Vue error in ${info}: `, err)
