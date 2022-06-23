@@ -1,6 +1,5 @@
 import dompurify from 'dompurify'
 import Vue from 'vue'
-import { cloneDeep } from '~/utils/giLodash.js'
 
 export const defaultConfig = {
   ALLOWED_ATTR: ['class'],
