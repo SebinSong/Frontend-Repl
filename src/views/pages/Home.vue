@@ -3,7 +3,7 @@ main.c-splash(data-test='homelogo' v-if='!$store.state.currentGroupId')
   //- TODO: split this into two files, one showing the login/signup buttons
   //-       and the other showing the create/join group buttons.
   header(v-if='!$store.state.loggedIn' key='title-login')
-    img.logo(src='/assets/images/group-income-icon-transparent.png')
+    img.logo(src='/images/group-income-icon-transparent.png')
     i18n.is-title-1(tag='h1' data-test='welcomeHome') Welcome to Group Income
 
   header(v-else key='title-not-login')
@@ -65,7 +65,7 @@ export default ({
       sbp('okTurtles.events/emit', OPEN_MODAL, mode)
     }
   }
-}: Object)
+})
 </script>
 
 <style scoped lang="scss">

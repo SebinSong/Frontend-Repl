@@ -8,11 +8,7 @@
   )
     app-styles
     banner-general(ref='bannerGeneral')
-    p Hello world!
-    a(
-      href="https://www.google.com/doodles"
-      target="_blank"
-    ) wow
+    router-view.l-page
 </template>
 
 <script>
