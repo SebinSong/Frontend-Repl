@@ -8,6 +8,7 @@
   )
     app-styles
     banner-general(ref='bannerGeneral')
+    navigation(v-if='showNav' class='l-navigation')
     router-view.l-page
 </template>
 
@@ -15,13 +16,15 @@
 import sbp from '~/shared/sbp.js'
 import AppStyles from '@components/AppStyles.vue'
 import BannerGeneral from '@components/banners/BannerGeneral.vue'
+import Navigation from './containers/navigation/Navigation.vue'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     AppStyles,
-    BannerGeneral
+    BannerGeneral,
+    Navigation
   },
   data () {
     return {
@@ -34,13 +37,16 @@ export default {
   },
   computed: {
     showNav () {
+      return true
+      /*
       return this.$store.state.loggedIn &&
         this.$store.getters.groupsByName.length > 0 &&
         this.$route.path !== '/join' // true when the user is logged-in
+      */
     },
     appClasses () {
       return {
-        'l-width-navigation': this.showNav,
+        'l-with-navigation': this.showNav,
         'l-no-navigation': !this.showNav,
         'js-reducedMotion': this.$store.state.reducedMotion,
         'is-dark-theme': this.$store.getters.isDarkTheme
