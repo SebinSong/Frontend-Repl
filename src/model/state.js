@@ -9,6 +9,10 @@ import { THEME_LIGHT, THEME_DARK } from '~/utils/themes.js'
 import * as EVENTS from '~/utils/events.js'
 import { CONTRACTS_MODIFIED } from '@/utils/events'
 import Colors from './colors.js'
+import { applyStorageRules } from './notifications/utils.js'
+
+// Vuex modules.
+import notificationsModule from './notifications/vuexModule.js'
 
 Vue.use(Vuex)
 
@@ -45,7 +49,17 @@ sbp('sbp/selectors/register', {
   'state/vuex/state': () => store.state,
   'state/vuex/commit': (id, payload) => store.commit(id, payload),
   'state/vuex/dispatch': (...args) => store.dispatch(...args),
-  'state/vuex/getters': () => store.getters
+  'state/vuex/getters': () => store.getters,
+  'state/vuex/save': async function () {
+    const state = store.state
+    // IMPORTANT! DO NOT CALL VUEX commit() in here in any way shape of forms.
+    //            Doing so will cause an infinite loop because of store.subscribe() below
+    if (state.loggedIn) {
+      state.notifications = applyStorageRules(state.notificaions || [])
+      // TODO: encrypt this
+      await sbp('gi.db/settings/save', state.loggedIn.username, state)
+    }
+  }
 })
 
 //Mutations must be synchronous! Never call these directly, instead use commit()
@@ -506,7 +520,9 @@ const store = new Vuex.Store({
   mutations,
   getters,
   actions: {},
-  modules: {},
+  modules: {
+    notifications: notificationsModule
+  },
   strict: process.env.VUEX_STRICT ? process.env.VUEX_STRICT === 'true' : true
 })
 

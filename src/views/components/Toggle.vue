@@ -20,7 +20,7 @@ export default ({
   },
   computed: {
     iconClass () {
-      return `icon-${element === 'navigation' ? 'bars' : 'info'}`
+      return `icon-${this.element === 'navigation' ? 'bars' : 'info'}`
     }
   }
 })
