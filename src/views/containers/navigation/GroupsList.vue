@@ -6,15 +6,48 @@ ul.c-group-list(v-if='groupsByName.length' data-test='groupsList')
     tag='button'
     :class='{ "is-active": currentGroupId === group.contractID }'
   )
-    
+    tooltip(
+      direction='right'
+      :text='group.groupName'
+    )
+      button.c-group-picture.is-unstyled(@click='handleMenuSelect(group.contractID)')
+        avatar.c-avatar(:src='$store.state[group.contractID].settings.groupPicture')
+      badge(
+        v-if='unreadGroupNotificationCountFor(group.contractID)'
+        :data-test='`groupBadge-${group.groupName}`'
+      ) {{ unreadGroupNotificationCountFor(group.contractID) }}
+
+  li.c-group-list-item
+    tooltip(
+      direction='right'
+      :text='L("create a new group")'
+    )
+      button(
+        class='is-icon has-background'
+        @click='openModal("GroupCreationModal")'
+        data-test='createGroup'
+        :aria-label='L("Add a group")'
+      )
+        i.icon-plus
 </template>
 
 <script>
 import sbp from '~/shared/sbp.js'
 import { mapGetters, mapState } from 'vuex'
+import { OPEN_MODAL } from '@utils/events.js'
+
+// child components
+import Avatar from '@components/Avatar.vue'
+import Tooltip from '@components/Tooltip.vue'
+import Badge from '@components/Badge.vue'
 
 export default ({
   name: 'GroupsList',
+  components: {
+    Avatar,
+    Badge,
+    Tooltip
+  },
   computed: {
     ...mapState([
       'currentGroupId'
@@ -41,5 +74,84 @@ export default ({
 <style lang="scss" scoped>
 @import "_variables.scss";
 
+.c-badge {
+  top: 0;
+  right: 1px; // Prevent badges from touching the vertical edge.
+  z-index: 2; // Make badges appear above group avatars.
+}
 
+.c-group-list {
+  width: 3.5rem;
+  padding-top: 0.7rem;
+  background-color: $general_1;
+}
+
+.c-group-list-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.group-badge {
+  &::before {
+    content: "";
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    transform: scale(0.7);
+    transition: all 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.38);
+  }
+
+  &.is-active {
+    &::before {
+      transform: scale(1);
+      border-color: $text_0;
+      animation: spin 0.5s ease-out;
+    }
+  }
+
+  &:not(.is-active) {
+    cursor: pointer;
+
+    &:focus::before,
+    &:hover::before {
+      border-color: $white;
+      border-width: 3px;
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(45deg);
+    filter: hue-rotate(0deg);
+    border-color: $primary_0 transparent transparent;
+  }
+
+  50% {
+    transform: rotate(315deg);
+    filter: hue-rotate(360deg);
+    border-color: $primary_0 transparent transparent;
+  }
+
+  100% {
+    transform: rotate(585deg);
+    border-color: $white;
+  }
+}
+
+.c-avatar {
+  position: relative;
+  z-index: 1;
+}
+
+.c-group-picture {
+  display: flex;
+}
 </style>

@@ -9,6 +9,8 @@ nav.c-navigation(
     @toggle='toggleMenu'
   )
     badge.c-toggle-badge(v-if='totalUnreadNotificationCount' data-test='dashboardBadge') {{ totalUnreadNotificationCount }}
+
+  groups-list(v-if='groupsByName.length > 1' :inert='isInert')
 </template>
 
 <script>
@@ -20,10 +22,12 @@ import { debounce } from '@utils/giLodash.js'
 // child components
 import Toggle from '@components/Toggle.vue'
 import Badge from '@components/Badge.vue'
+import GroupsList from './GroupsList.vue'
 
 export default ({
   name: 'Navigation',
   components: {
+    GroupsList,
     Toggle,
     Badge
   },
