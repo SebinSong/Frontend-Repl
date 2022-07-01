@@ -29,6 +29,14 @@ export default (
       } else {
         sbp('okTurtles.data/delete', listenKey(event))
       }
+    },
+    'okTurtles.events/has': function (event) {
+      return Boolean(sbp('okTurtles.data/get', event))
+    },
+    'okTurtles.events/hasHandler': function (event, handler) {
+      const handlerList = sbp('okTurtles.data/get', listenKey(event))
+
+      return handlerList ? handlerList.includes(handler) : false
     }
   })
 )
