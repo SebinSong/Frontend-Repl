@@ -9,6 +9,7 @@ export const OPEN_MODAL = 'open-modal'
 export const CLOSE_MODAL = 'close-modal'
 export const REPLACE_MODAL = 'replace-modal'
 export const SET_MODAL_QUERIES = 'set-modal-queries'
+export const MODAL_RESPONSE = 'moda-response'
 
 export const OPEN_EMOTICION = 'open-emoticon'
 export const CLOSE_EMOTICON = 'close-emoticon'

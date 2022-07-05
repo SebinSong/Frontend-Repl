@@ -10,12 +10,14 @@
     banner-general(ref='bannerGeneral')
     navigation(v-if='showNav' class='l-navigation')
     router-view.l-page
+    modal.l-modal
 </template>
 
 <script>
 import sbp from '~/shared/sbp.js'
 import AppStyles from '@components/AppStyles.vue'
 import BannerGeneral from '@components/banners/BannerGeneral.vue'
+import Modal from '@components/modal/Modal.vue'
 import Navigation from './containers/navigation/Navigation.vue'
 import { mapMutations } from 'vuex'
 
@@ -24,7 +26,8 @@ export default {
   components: {
     AppStyles,
     BannerGeneral,
-    Navigation
+    Navigation,
+    Modal
   },
   data () {
     return {

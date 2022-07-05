@@ -71,3 +71,57 @@ export function debounce (func, wait, immediate) {
 
   return debounced
 }
+
+export function randomBytes (length) {
+  return crypto.getRandomValues(new Uint8Array(length))
+}
+
+export function randomHexString (length) {
+  return Array.from(randomBytes(length), byte => (byte % 16).toString(16)).join('')
+}
+
+export function randomIntFromRange (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export function randomFromArray (arr) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+export function isMergeableObject (val) {
+  const nonNullObject = val && typeof val === 'object'
+
+  return nonNullObject &&
+    Object.prototype.toString.call(val) !== '[object RegExp]'
+}
+
+export function merge (obj, src) {
+  for (const key in src) {
+    const clone = isMergeableObject(src[key]) ? cloneDeep(src[key]) : undefined
+    if (clone && isMergeableObject(obj[key])) {
+      merge(obj[key], clone)
+      continue
+    }
+
+    obj[key] = clone || src[key]
+  }
+
+  return obj
+}
+
+function flatten (arr) {
+  let flat = []
+  for (let i=0; i<arr.length; i++) {
+    const entry = arr[i]
+    if (Array.isArray(entry)) {
+      flat = flat.concat(entry)
+    } else {
+      flat.push(entry)
+    }
+  }
+
+  if (flat.some(item => Array.isArray(item)))
+    return flatten(flat)
+  else
+    return flat
+}
