@@ -2,7 +2,7 @@
 import sbp from '~/shared/sbp.js'
 
 export default ({
-  name: 'transitionExpand',
+  name: 'TransitionExpand',
   functional: true,
   render (createElement, context) {
     const data = {
@@ -28,6 +28,8 @@ export default ({
           element.style.visibility = null
           element.style.height = 0
 
+          // Force repaint to make sure the animation is triggered correctly.
+          // eslint-disable-next-line no-unused-expressions
           getComputedStyle(element).height
           setTimeout(() => {
             element.style.height = height
@@ -37,8 +39,9 @@ export default ({
           if (sbp('state/vuex/state').reducedMotion) { return }
 
           const { height } = getComputedStyle(element)
-          element.style.height = height
 
+          // Force repaint to make sure the animation is triggered correctly.
+          // eslint-disable-next-line no-unused-expressions
           getComputedStyle(element).height
 
           setTimeout(() => {

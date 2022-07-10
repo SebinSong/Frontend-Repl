@@ -10,7 +10,8 @@ import router from './controller/router.js'
 
 // custom directives
 import '@view-utils/vSafeHtml.js' 
-import '@view-utils/vFocus.js' 
+import '@view-utils/vFocus.js'
+import '@view-utils/vError.js' 
 // global components
 import './views/components/global-components/vStyle.js'
 
